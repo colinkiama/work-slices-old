@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2021 Colin Kiama <colinkiama@gmail.com> -->
+<component type="desktop">
+  <id>com.github.colinkiama.work-slices</id>
+  <metadata_license>CC0</metadata_license>
+  <name>work-slices</name>
+  <summary>Pomodoro Timer for Elementary OS</summary>
+  <description>
+    <p>Helps you split your work into intervals with, breaks and long breaks between work sessions.</p>
+  </description>
+</component>

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Work Slices
+GenericName=work-slices App
+Comment=Pomodoro Timer for Elementary OS
+Categories=Office;
+Exec=com.github.colinkiama.work-slices
+Icon=com.github.colinkiama.work-slices
+Terminal=false
+Type=Application
+Keywords=work;slices;pomodoro;timer;productivity;tomato;clock;session;sessions;interval;intervals;
