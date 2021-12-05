@@ -15,6 +15,7 @@ public class WorkSlices.MainWindow: Hdy.ApplicationWindow {
         grid.orientation = Gtk.Orientation.VERTICAL;
         var header_bar = new Hdy.HeaderBar () {
             show_close_button = true,
+            // Stretches Hdy.HeaderBar to the width of its container
             hexpand = true
         };
 
