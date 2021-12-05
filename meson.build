@@ -1,13 +1,17 @@
 # project name and programming language
 project('com.github.colinkiama.work-slices', 'vala', 'c')
 
+# Run through meson.build file in src directory. 'sources' is defined there.
+subdir('src')
+
 # Create a new executable, list the files we want to compile, list the dependencies we need, and install
 executable(
     meson.project_name(),
-    'src' / 'Application.vala',
+    sources,
     dependencies: [
         dependency('gtk+-3.0'),
-        dependency('granite')
+        dependency('granite'),
+        dependency('libhandy-1'),
     ],
     install: true
 )

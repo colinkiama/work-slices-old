@@ -1,35 +1,37 @@
-public class MyApp : Gtk.Application {
-    public MyApp () {
-        Object (
-            application_id: "com.github.colinkiama.work-slices",
-            flags: ApplicationFlags.FLAGS_NONE
-        );
-    }
+namespace WorkSlices {
+    public class Application : Gtk.Application {
+        public Application () {
+            Object (
+                application_id: "com.github.colinkiama.work-slices",
+                flags: ApplicationFlags.FLAGS_NONE
+            );
 
-    protected override void activate () {
-        var main_window = new Gtk.ApplicationWindow (this) {
-            default_height = 300,
-            default_width = 300,
-            title = "Work Slices"
-        };
+            this.startup.connect (() => {
+                Hdy.init ();
+            });
+        }
 
-        var gtk_settings = Gtk.Settings.get_default ();
-        var granite_settings = Granite.Settings.get_default ();
+        protected override void activate () {
+            MainWindow main_window = new MainWindow (this);
+            main_window.show_all ();
 
-        gtk_settings.gtk_application_prefer_dark_theme = (
-            granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
-        );
+            var gtk_settings = Gtk.Settings.get_default ();
+            var granite_settings = Granite.Settings.get_default ();
 
-        granite_settings.notify["prefers-color-scheme"].connect (() => {
             gtk_settings.gtk_application_prefer_dark_theme = (
                 granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
             );
-        });
 
-        main_window.show_all ();
-    }
+            granite_settings.notify["prefers-color-scheme"].connect (() => {
+                gtk_settings.gtk_application_prefer_dark_theme = (
+                    granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
+                );
+            });
 
-    public static int main (string[] args) {
-        return new MyApp ().run (args);
+        }
+
+        public static int main (string[] args) {
+            return new Application ().run (args);
+        }
     }
 }
