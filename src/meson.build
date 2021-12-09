@@ -6,4 +6,6 @@ sources = files([
     'Model/Session.vala',
     'Model/SessionLengths.vala',
     'Model/Pomodoro.vala',
+    'View/TimerView.vala',
+    'ViewModel/TimerViewModel.vala'
 ])
