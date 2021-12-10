@@ -16,7 +16,6 @@ public class WorkSlices.View.TimerView : Gtk.Grid {
     }
 
     construct {
-
         setup_events ();
         _time_label.get_style_context ().add_class ("h1");
         Gtk.Box primary_timer_controls_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 24) {
