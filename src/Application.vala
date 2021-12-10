@@ -12,7 +12,7 @@ public class WorkSlices.Application : Gtk.Application {
 
     protected override void activate () {
         MainWindow main_window = new MainWindow (this);
-        main_window.show_all ();
+        main_window.show ();
 
         var gtk_settings = Gtk.Settings.get_default ();
         var granite_settings = Granite.Settings.get_default ();

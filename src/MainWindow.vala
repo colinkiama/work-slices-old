@@ -18,10 +18,15 @@ public class WorkSlices.MainWindow: Hdy.ApplicationWindow {
             hexpand = true
         };
 
+        header_bar.show_all ();
+
         grid.attach (header_bar, 0, 0);
         grid.attach (new WorkSlices.View.TimerView (), 0, 1);
 
+        grid.show ();
+
         this.add (grid);
+        this.show ();
     }
 
 }
