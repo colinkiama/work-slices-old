@@ -2,8 +2,8 @@ public class WorkSlices.MainWindow: Hdy.ApplicationWindow {
     public MainWindow (Gtk.Application application) {
         Object (
             application: application,
-            default_height: 300,
-            default_width: 300
+            width_request: 300,
+            height_request: 300
         );
     }
 
