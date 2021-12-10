@@ -2,9 +2,7 @@ public class WorkSlices.View.TimerView : Gtk.Grid {
     private WorkSlices.ViewModel.TimerViewModel _view_model =
         new WorkSlices.ViewModel.TimerViewModel ();
 
-    private Gtk.Label _time_label = new Gtk.Label ("0:00") {
-
-    };
+    private Gtk.Label _time_label = new Gtk.Label ("0:00");
     private Gtk.Button _pause_button = new Gtk.Button.with_label ("Pause");
     private Gtk.Button _play_button = new Gtk.Button.with_label ("Play");
     private Gtk.Button _skip_button = new Gtk.Button.with_label ("Skip");
