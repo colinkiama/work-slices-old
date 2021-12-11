@@ -10,9 +10,10 @@ public class WorkSlices.Services.TimerService : Object {
     private TimerRequest timer_request;
 
     public signal void ticked (TimeSpan time_elapsed);
-    public signal void stopped (TimeSpan time_elapsed);
+    public signal void stopped ();
+    public signal void completed ();
     // Past tense of "reset" is "reset". It's
-    public signal void progress_reset (TimeSpan time_elapsed);
+    public signal void progress_reset ();
 
 
     public TimeSpan length { get; construct; }
@@ -56,6 +57,10 @@ public class WorkSlices.Services.TimerService : Object {
                 var current_time = new DateTime.now_utc ();
                 time_elapsed += current_time.difference (_last_stored_time);
                 should_continue_timer = time_elapsed >= length;
+                if (!should_continue_timer) {
+                    completed ();
+                }
+
                 break;
             case TimerRequest.STOP:
                 break;
@@ -64,8 +69,8 @@ public class WorkSlices.Services.TimerService : Object {
                 break;
         }
 
-        send_request_signal (timer_request);
         if (timer_request != TimerRequest.NONE) {
+            send_request_signal (timer_request);
             remove_request ();
         }
 
@@ -75,10 +80,10 @@ public class WorkSlices.Services.TimerService : Object {
     private void send_request_signal (TimerRequest request) {
         switch (request) {
             case TimerRequest.RESET:
-                progress_reset (time_elapsed);
+                progress_reset ();
                 break;
             case TimerRequest.STOP:
-                stopped (time_elapsed);
+                stopped ();
                 break;
         }
     }
