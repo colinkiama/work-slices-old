@@ -1,5 +1,7 @@
 public class WorkSlices.ViewModel.TimerViewModel: Object {
-    public bool is_timer_running { get; set; }
+    public bool is_timer_running { get; set ; }
+    public TimeSpan time_left { get; set; }
+    public WorkSlices.Enums.TimerStatus timer_status { get; set; }
 
     public void toggle () {
         toggle_timer_running_status ();

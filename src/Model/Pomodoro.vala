@@ -1,4 +1,4 @@
-public class WorkSlices.Model.Pomodoro {
+public class WorkSlices.Model.Pomodoro : Object {
     public WorkSlices.Enums.SessionType current_session_type { get; private set;}
     public int work_sessions_completed { get; private set;}
     public int total_work_sessions { get; private set; }
