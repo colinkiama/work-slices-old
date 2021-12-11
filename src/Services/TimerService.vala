@@ -2,7 +2,7 @@ using WorkSlices.Enums;
 /**
  * A Timer that sends signals about it's progress.
  */
-public class WorkSlices.Model.Timer : Object {
+public class WorkSlices.Services.TimerService : Object {
     // In milliseconds (ms)
     private const uint INTERVAL = 500;
     private bool is_running { get; set; }
@@ -19,7 +19,7 @@ public class WorkSlices.Model.Timer : Object {
     public TimeSpan time_elapsed { get; private set; }
 
 
-    public Timer (TimeSpan length) {
+    public TimerService (TimeSpan length) {
         Object (length: length);
     }
 
