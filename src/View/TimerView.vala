@@ -53,8 +53,7 @@ public class WorkSlices.View.TimerView : Gtk.Grid {
         _play_button.clicked.connect (() => _view_model.toggle ());
         _pause_button.clicked.connect (() => _view_model.toggle ());
         _skip_button.clicked.connect (() => _view_model.skip ());
-
-
+        _reset_button.clicked.connect (() => _view_model.reset ());
     }
 
     private void setup_bindings () {

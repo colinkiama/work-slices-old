@@ -16,6 +16,15 @@ public class WorkSlices.ViewModel.TimerViewModel: Object {
         timer_service.ticked.connect ((time_elapsed) => {
             time_left = session_length - time_elapsed;
         });
+
+        timer_service.stopped.connect (() => {
+            update_timer_run_status ();
+        });
+
+        timer_service.progress_reset.connect (() => {
+            time_left = session_length;
+            update_timer_run_status ();
+        });
     }
 
     public void toggle () {
@@ -28,6 +37,11 @@ public class WorkSlices.ViewModel.TimerViewModel: Object {
         }
     }
 
+    // TODO: Replace timer_service with new one
+    public void reset () {
+        timer_service.reset ();
+    }
+
     public void toggle_timer_running_status () {
         if (!timer_service.is_running) {
             timer_service.start ();
@@ -35,6 +49,11 @@ public class WorkSlices.ViewModel.TimerViewModel: Object {
             timer_service.stop ();
         }
 
+        update_timer_run_status ();
+    }
+
+    private void update_timer_run_status () {
         is_timer_running = timer_service.is_running;
+
     }
 }

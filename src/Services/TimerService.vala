@@ -27,20 +27,19 @@ public class WorkSlices.Services.TimerService : Object {
     public void start () {
         _last_stored_time = new DateTime.now_utc ();
         Timeout.add (INTERVAL, tick);
+        is_running = true;
     }
 
     public void stop () {
-        request_stop ();
+        if (timer_request == TimerRequest.NONE) {
+            timer_request = TimerRequest.STOP;
+        };
     }
 
     public void reset () {
-        request_stop ();
-    }
-
-    private void request_stop () {
         if (timer_request == TimerRequest.NONE) {
-            timer_request = TimerRequest.STOP;
-        }
+            timer_request = TimerRequest.RESET;
+        };
     }
 
     private void remove_request () {
@@ -84,9 +83,11 @@ public class WorkSlices.Services.TimerService : Object {
     private void send_request_signal (TimerRequest request) {
         switch (request) {
             case TimerRequest.RESET:
+                is_running = false;
                 progress_reset ();
                 break;
             case TimerRequest.STOP:
+                is_running = false;
                 stopped ();
                 break;
         }
