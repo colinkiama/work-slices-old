@@ -6,8 +6,8 @@ namespace WorkSlices.Helpers.TimerHelpers {
         int seconds = 0,
         int milliseconds = 0
     ) {
-        return (days * TimeSpan.DAY) + (minutes * TimeSpan.MINUTE) +
-            (hours * TimeSpan.HOUR) + (seconds * TimeSpan.SECOND) +
+        return (days * TimeSpan.DAY) + (hours * TimeSpan.HOUR) +
+            (minutes * TimeSpan.MINUTE) + (seconds * TimeSpan.SECOND) +
             (milliseconds * TimeSpan.MILLISECOND);
     }
 }

@@ -69,13 +69,13 @@ public class WorkSlices.View.TimerView : Gtk.Grid {
         _view_model.bind_property ("time-left", _time_label, "label", GLib.BindingFlags.SYNC_CREATE,
             (binding, src_val , ref target_val) => {
                 TimeSpan src = (TimeSpan) src_val;
-                uint minutes = (uint)(src / TimeSpan.MINUTE);
-                src -= minutes;
-                uint seconds = (uint)(src / TimeSpan.SECOND);
+                TimeSpan src_copy = src * 1;
+                uint minutes = (uint)(src_copy / TimeSpan.MINUTE);
+                src_copy -= minutes * TimeSpan.MINUTE;
+                uint seconds = (uint)(src_copy / TimeSpan.SECOND);
 
                 // Build time string of minutes:seconds.
                 StringBuilder sb = new StringBuilder ();
-
                 sb.append_printf ("%u:%s", minutes, print_num_with_double_digits (seconds));
                 print ("Time: %s", sb.str);
                 target_val.set_string (sb.str);
@@ -93,9 +93,7 @@ public class WorkSlices.View.TimerView : Gtk.Grid {
 
     private int digit_count (uint num) {
         if (num > 0) {
-            int count = 1;
-            count += digit_count (num / 10);
-            return count;
+            return digit_count (num / 10) + 1;
         } else {
             return 1;
         }
