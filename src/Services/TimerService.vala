@@ -54,7 +54,6 @@ public class WorkSlices.Services.TimerService : Object {
         switch (timer_request) {
             case TimerRequest.NONE:
                 var current_time = new DateTime.now_utc ();
-                print ("Difference: %lld", current_time.difference (_last_stored_time));
                 time_elapsed += current_time.difference (_last_stored_time);
                 _last_stored_time = current_time;
                 should_continue_timer = time_elapsed < length;
