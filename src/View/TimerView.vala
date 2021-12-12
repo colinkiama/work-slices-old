@@ -60,14 +60,45 @@ public class WorkSlices.View.TimerView : Gtk.Grid {
     private void setup_bindings () {
         _view_model.bind_property ("is-timer-running", _play_button, "visible", GLib.BindingFlags.SYNC_CREATE |
             GLib.BindingFlags.INVERT_BOOLEAN);
+
         _view_model.bind_property ("is-timer-running", _skip_button, "visible", GLib.BindingFlags.SYNC_CREATE |
             GLib.BindingFlags.INVERT_BOOLEAN);
+
         _view_model.bind_property ("is-timer-running", _pause_button, "visible", GLib.BindingFlags.SYNC_CREATE |
             GLib.BindingFlags.DEFAULT);
+        _view_model.bind_property ("time-left", _time_label, "label", GLib.BindingFlags.SYNC_CREATE,
+            (binding, src_val , ref target_val) => {
+                TimeSpan src = (TimeSpan) src_val;
+                uint minutes = (uint)(src / TimeSpan.MINUTE);
+                src -= minutes;
+                uint seconds = (uint)(src / TimeSpan.SECOND);
+
+                // Build time string of minutes:seconds.
+                StringBuilder sb = new StringBuilder ();
+
+                sb.append_printf ("%u:%s", minutes, print_num_with_double_digits (seconds));
+                print ("Time: %s", sb.str);
+                target_val.set_string (sb.str);
+                return true;
+            }
+        );
     }
 
-    protected override void dispose () {
-        base.dispose ();
+    private string print_num_with_double_digits (uint num) {
+        if (digit_count (num) == 1) {
+            return "0%u".printf (num);
+        }
+        return "%u".printf (num);
     }
 
+    private int digit_count (uint num) {
+        if (num > 0) {
+            int count = 1;
+            count += digit_count (num / 10);
+            return count;
+        } else {
+            return 1;
+        }
+
+    }
 }

@@ -5,7 +5,6 @@ using WorkSlices.Enums;
 public class WorkSlices.Services.TimerService : Object {
     // In milliseconds (ms)
     private const uint INTERVAL = 500;
-    private bool is_running { get; set; }
     private DateTime _last_stored_time;
     private TimerRequest timer_request;
 
@@ -16,6 +15,7 @@ public class WorkSlices.Services.TimerService : Object {
     public signal void progress_reset ();
 
 
+    public bool is_running { get; private set; }
     public TimeSpan length { get; construct; }
     public TimeSpan time_elapsed { get; private set; }
 
@@ -56,7 +56,7 @@ public class WorkSlices.Services.TimerService : Object {
             case TimerRequest.NONE:
                 var current_time = new DateTime.now_utc ();
                 time_elapsed += current_time.difference (_last_stored_time);
-                should_continue_timer = time_elapsed >= length;
+                should_continue_timer = time_elapsed < length;
                 if (!should_continue_timer) {
                     completed ();
                 }
