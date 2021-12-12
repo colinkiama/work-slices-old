@@ -76,7 +76,6 @@ public class WorkSlices.View.TimerView : Gtk.Grid {
                 // Build time string of minutes:seconds.
                 StringBuilder sb = new StringBuilder ();
                 sb.append_printf ("%u:%s", minutes, print_num_with_double_digits (seconds));
-                print ("Time: %s", sb.str);
                 target_val.set_string (sb.str);
                 return true;
             }
