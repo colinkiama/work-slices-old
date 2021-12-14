@@ -12,6 +12,7 @@ executable(
         dependency('gtk+-3.0'),
         dependency('granite'),
         dependency('libhandy-1'),
+        meson.get_compiler('c').find_library('m', required: false),
     ],
     install: true
 )

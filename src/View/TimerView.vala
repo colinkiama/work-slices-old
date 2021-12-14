@@ -68,10 +68,9 @@ public class WorkSlices.View.TimerView : Gtk.Grid {
         _view_model.bind_property ("time-left", _time_label, "label", GLib.BindingFlags.SYNC_CREATE,
             (binding, src_val , ref target_val) => {
                 TimeSpan src = (TimeSpan) src_val;
-                TimeSpan src_copy = src * 1;
-                uint minutes = (uint)(src_copy / TimeSpan.MINUTE);
-                src_copy -= minutes * TimeSpan.MINUTE;
-                uint seconds = (uint)(src_copy / TimeSpan.SECOND);
+                uint minutes = (uint)(src / TimeSpan.MINUTE);
+                src -= minutes * TimeSpan.MINUTE;
+                uint seconds = (uint)(src / TimeSpan.SECOND);
 
                 // Build time string of minutes:seconds.
                 StringBuilder sb = new StringBuilder ();
