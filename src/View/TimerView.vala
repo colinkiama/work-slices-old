@@ -89,9 +89,9 @@ public class WorkSlices.View.TimerView : Gtk.Grid {
         return "%u".printf (num);
     }
 
-    private int digit_count (uint num) {
+    private uint digit_count (uint num) {
         if (num > 0) {
-            return digit_count (num / 10) + 1;
+            return (uint) (Math.log10 (num) + 1);
         } else {
             return 1;
         }
