@@ -50,7 +50,26 @@ public class WorkSlices.View.TimerView : Gtk.Grid {
     }
 
     private void setup_events () {
-        _play_button.clicked.connect (() => _view_model.toggle ());
+
+
+        // _play_button.clicked.connect (() => _view_model.toggle ());
+        _play_button.clicked.connect (() => {
+            _view_model.toggle ();
+            var notification = new Notification ("Started notification");
+            notification.set_body ("This is all I had time for today. Flatpak GL issues *sigh*");
+            notification.set_icon (new ThemedIcon ("appointment"));
+            // TODO: Encapsulate notifications and actions into a service
+            var acknowledge_action = new SimpleAction ("acknowledge", null);
+            acknowledge_action.activate.connect (() => {
+                print ("Acknowledged.\n");
+            });
+
+            var current_app = GLib.Application.get_default ();
+            current_app.add_action (acknowledge_action);
+            notification.add_button ("Acknowledge", "app.acknowledge");
+            current_app.send_notification ("com.github.colinkiama.work-slices", notification);
+        });
+
         _pause_button.clicked.connect (() => _view_model.toggle ());
         _skip_button.clicked.connect (() => _view_model.skip ());
         _reset_button.clicked.connect (() => _view_model.reset ());
@@ -65,6 +84,7 @@ public class WorkSlices.View.TimerView : Gtk.Grid {
 
         _view_model.bind_property ("is-timer-running", _pause_button, "visible", GLib.BindingFlags.SYNC_CREATE |
             GLib.BindingFlags.DEFAULT);
+
         _view_model.bind_property ("time-left", _time_label, "label", GLib.BindingFlags.SYNC_CREATE,
             (binding, src_val , ref target_val) => {
                 TimeSpan src = (TimeSpan) src_val;
@@ -91,9 +111,8 @@ public class WorkSlices.View.TimerView : Gtk.Grid {
     private uint digit_count (uint num) {
         if (num > 0) {
             return (uint) (Math.log10 (num) + 1);
-        } else {
-            return 1;
         }
 
+        return 1;
     }
 }

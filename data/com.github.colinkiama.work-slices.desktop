@@ -8,3 +8,4 @@ Icon=com.github.colinkiama.work-slices
 Terminal=false
 Type=Application
 Keywords=work;slices;pomodoro;timer;productivity;tomato;clock;session;sessions;interval;intervals;
+X-GNOME-UsesNotifications=true
